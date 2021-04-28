@@ -1,16 +1,20 @@
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
-from player import Hand, gun, gun_shot
+from player import Hand
 from window import Screen
+from scenary import Floor, sky_set
 
 app = Ursina()
 
 
 def update():
     if held_keys['left mouse']:
-        hand.shot()
+        hand.aim()
     else:
         hand.with_gun()
+
+    if held_keys['right mouse']:
+        hand.shoot()
 
     if held_keys['q']:
         quit()
@@ -19,23 +23,20 @@ def update():
         hand.with_gun()
 
 
-class Voxel(Button):
-    def __init__(self, position=(0, 0, 0)):
-        super().__init__(parent=scene, position=position, model='cube', origin_y=0, texture='brick',
-                         color=color.white, highlight_color=color.lime)
+if __name__ == '__main__':
+    # init first person
+    player = FirstPersonController()
 
-    def input(self, key):
-        if self.hovered:
-            if
+    # init sky
+    sky_set()
 
+    # init floor
+    for z in range(20):
+        for x in range(20):
+            Floor(position=(x, -20, z))
 
-Entity(parent=scene, model="sphere", texture="textures/sky.png", scale=100, position=(0, 0, 0), double_sided=True)
-
-for z in range(20):
-    for x in range(20):
-        Voxel(position=(x, 0, z))
-
-player = FirstPersonController()
-hand = Hand()
-win = Screen()
-app.run()
+    hand = Hand()
+    win = Screen()
+    win.setting()
+    win.text()
+    app.run()

@@ -23,12 +23,22 @@ class Hand(Entity):
         self.model = 'models/player/hand_gun.obj'
         self.texture = 'models/player/hand_gun.png'
 
-    def shot(self):
+    def aim(self):
+        self.scale = 0.3
+        self.position = Vec2(0.69, -0.70)
+        self.rotation = Vec3(0, 65, 5)
+        self.model = 'models/player/hand_gun.obj'
+        self.texture = 'models/player/hand_gun.png'
+
+    def shoot(self):
         self.scale = 0.3
         self.position = Vec2(0.69, -0.70)
         self.rotation = Vec3(0, 65, 5)
         self.model = 'models/player/hand_gun_shoot.obj'
         self.texture = 'models/player/hand_gun_shoot.png'
+
+
+
 
 
 
